@@ -179,7 +179,7 @@
 
         <label>Native Country</label>
         <select name="native.country" required> 
-            {% for in item ['United-States','India','Mexico','Canada','Germany','Philippines','England','Other']%}
+            {% for item in ['United-States','India','Mexico','Canada','Germany','Philippines','England','Other']%}
                 <option value ="{{ item }}"
                   {% if form_data and form_data.Native Country == item %}selected{% endif %}>
                   {{ item }}
