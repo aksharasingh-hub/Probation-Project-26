@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adult Income Prediction</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f8;
+            margin: 0;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+            background: #2463eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .results {
+            margin-top: 25px;
+            padding: 15px;
+            background: #e8f4ff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Adult Income Prediction</h1>
+
+    <p>Enter the person's details below.</p>
+
+    <form action="/predict" method="POST">
+
+        <label>Age</label>
+        <input type="number" name="age" min="17" max="100" value="30" required>
+
+        <label>Workclass</label>
+        <select name="workclass" required>
+            <option>Private</option>
+            <option>Self-emp-not-inc</option>
+            <option>Self-emp-inc</option>
+            <option>Federal-gov</option>
+            <option>Local-gov</option>
+            <option>State-gov</option>
+            <option>Without-pay</option>
+            <option>Never-worked</option>
+        </select>
+
+        <label>Final Weight (fnlwgt)</label>
+        <input type="number" name="fnlwgt" min="1" value="100000" required>
+
+        <label>Education</label>
+        <select name="education" required>
+            <option>HS-grad</option>
+            <option>Bachelors</option>
+            <option>Some-college</option>
+            <option>Masters</option>
+            <option>Doctorate</option>
+            <option>Assoc-voc</option>
+            <option>Assoc-acdm</option>
+            <option>11th</option>
+            <option>10th</option>
+            <option>9th</option>
+            <option>12th</option>
+            <option>7th-8th</option>
+            <option>5th-6th</option>
+            <option>1st-4th</option>
+            <option>Preschool</option>
+            <option>Prof-school</option>
+        </select>
+
+        <label>Education Number</label>
+        <input type="number" name="education.num" min="1" max="16" value="10" required>
+
+        <label>Marital Status</label>
+        <select name="marital.status" required>
+            <option>Never-married</option>
+            <option>Married-civ-spouse</option>
+            <option>Divorced</option>
+            <option>Separated</option>
+            <option>Widowed</option>
+            <option>Married-spouse-absent</option>
+            <option>Married-AF-spouse</option>
+        </select>
+
+        <label>Occupation</label>
+        <select name="occupation" required>
+            <option>Prof-specialty</option>
+            <option>Craft-repair</option>
+            <option>Exec-managerial</option>
+            <option>Adm-clerical</option>
+            <option>Sales</option>
+            <option>Other-service</option>
+            <option>Machine-op-inspct</option>
+            <option>Transport-moving</option>
+            <option>Handlers-cleaners</option>
+            <option>Farming-fishing</option>
+            <option>Tech-support</option>
+            <option>Protective-serv</option>
+            <option>Priv-house-serv</option>
+            <option>Armed-Forces</option>
+        </select>
+
+        <label>Relationship</label>
+        <select name="relationship" required>
+            <option>Husband</option>
+            <option>Not-in-family</option>
+            <option>Own-child</option>
+            <option>Unmarried</option>
+            <option>Wife</option>
+            <option>Other-relative</option>
+        </select>
+
+        <label>Race</label>
+        <select name="race" required>
+            <option>White</option>
+            <option>Black</option>
+            <option>Asian-Pac-Islander</option>
+            <option>Amer-Indian-Eskimo</option>
+            <option>Other</option>
+        </select>
+
+        <label>Sex</label>
+        <select name="sex" required>
+            <option>Female</option>
+            <option>Male</option>
+        </select>
+
+        <label>Capital Gain</label>
+        <input type="number" name="capital.gain" min="0" value="0" required>
+
+        <label>Capital Loss</label>
+        <input type="number" name="capital.loss" min="0" value="0" required>
+
+        <label>Hours per Week</label>
+        <input type="number" name="hours.per.week" min="1" max="99" value="40" required>
+
+        <label>Native Country</label>
+        <select name="native.country" required>
+            <option>United-States</option>
+            <option>India</option>
+            <option>Mexico</option>
+            <option>Canada</option>
+            <option>Germany</option>
+            <option>Philippines</option>
+            <option>England</option>
+            <option>Other</option>
+        </select>
+
+        <button type="submit">Predict Income</button>
+
+    </form>
+    {% if predictions %}
+    <div class="results">
+        <h2>Prediction Results</h2>
+        {% for model_name, result in predictions.items() %}
+            <p>
+                <strong>{{ model_name }}:</strong>
+                {{ result }}
+            </p>
+        {% endfor %}
+        <p>
+            These are model predictions, not guaranteed actual income.
+        </p>
+
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
