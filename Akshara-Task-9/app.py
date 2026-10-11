@@ -37,7 +37,7 @@ def predict():
         predictions[model_name] = result
     return render_template(
         "index.html",
-        predictions=predictions
+        predictions=predictions,form_data=input_data
     )
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5001, debug=False)
