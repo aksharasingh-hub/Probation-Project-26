@@ -71,119 +71,120 @@
     <form action="/predict" method="POST">
 
         <label>Age</label>
-        <input type="number" name="age" min="17" max="100" value="30" required>
+        <input type="number" name="age" min="17" max="100" value="{{form_data.age if form_data else 30}}" required>
 
         <label>Workclass</label>
         <select name="workclass" required>
-            <option>Private</option>
-            <option>Self-emp-not-inc</option>
-            <option>Self-emp-inc</option>
-            <option>Federal-gov</option>
-            <option>Local-gov</option>
-            <option>State-gov</option>
-            <option>Without-pay</option>
-            <option>Never-worked</option>
+            {% for item in [
+                'Private',
+                'Self-emp-not-inc',
+                'Self-emp-inc',
+                'Federal-gov',
+                'Local-gov',
+                'State-gov',
+                'Without-pay',
+                'Never-worked'
+            ] %}
+                <option value="{{ item }}"
+                    {% if form_data and form_data.workclass == item %}selected{% endif %}>
+                    {{ item }}
+                </option>
+            {% endfor %}
         </select>
 
         <label>Final Weight (fnlwgt)</label>
-        <input type="number" name="fnlwgt" min="1" value="100000" required>
+        <input type="number" name="fnlwgt" min="1" value="{{form_data.fnlwgt if form_data else 100000}}" required>
 
         <label>Education</label>
         <select name="education" required>
-            <option>HS-grad</option>
-            <option>Bachelors</option>
-            <option>Some-college</option>
-            <option>Masters</option>
-            <option>Doctorate</option>
-            <option>Assoc-voc</option>
-            <option>Assoc-acdm</option>
-            <option>11th</option>
-            <option>10th</option>
-            <option>9th</option>
-            <option>12th</option>
-            <option>7th-8th</option>
-            <option>5th-6th</option>
-            <option>1st-4th</option>
-            <option>Preschool</option>
-            <option>Prof-school</option>
+            {% for item in [
+                'HS-grad', 'Bachelors', 'Some-college','Masters', 'Doctorate', 'Assoc-voc','Assoc-acdm', '11th', '10th', '9th',
+                '12th', '7th-8th', '5th-6th','1st-4th', 'Preschool', 'Prof-school'
+            ] %}
+                <option value="{{ item }}"
+                    {% if form_data and form_data.education == item %}selected{% endif %}>
+                    {{ item }}
+                </option>
+            {% endfor %}
         </select>
-
         <label>Education Number</label>
-        <input type="number" name="education.num" min="1" max="16" value="10" required>
+        <input type="number" name="education.num" min="1" max="16" value="{{form_data['education.num'] if form_data else 10}}" required>
 
         <label>Marital Status</label>
         <select name="marital.status" required>
-            <option>Never-married</option>
-            <option>Married-civ-spouse</option>
-            <option>Divorced</option>
-            <option>Separated</option>
-            <option>Widowed</option>
-            <option>Married-spouse-absent</option>
-            <option>Married-AF-spouse</option>
+            {% for item in [
+                'Never-married','Married-civ-spouse','Divorced','Separated','Widowed','Married-spouse-absent','Married-AF-spouse'
+            ] %}
+                <option value="{{ item }}"
+                  {% if form_data and form_data['marital.status'] == item %}selected{% endif %}>
+                  {{ item }}
+                </option>
+            {% endfor %}
+
         </select>
 
         <label>Occupation</label>
-        <select name="occupation" required>
-            <option>Prof-specialty</option>
-            <option>Craft-repair</option>
-            <option>Exec-managerial</option>
-            <option>Adm-clerical</option>
-            <option>Sales</option>
-            <option>Other-service</option>
-            <option>Machine-op-inspct</option>
-            <option>Transport-moving</option>
-            <option>Handlers-cleaners</option>
-            <option>Farming-fishing</option>
-            <option>Tech-support</option>
-            <option>Protective-serv</option>
-            <option>Priv-house-serv</option>
-            <option>Armed-Forces</option>
+        <select name="occupation" required> 
+            
+          {% for item in ['Prof-specialty','Craft-repair','Exec-managerial','Adm-clerical','Sales','Other-service','Machine-op-inspct',
+                          'Transport-moving','Handlers-cleaners','Farming-fishing','Tech-support','Protective-serv','Priv-house-serv','Armed-Forces'
+          ] %}
+            <option value="{{ item }}"
+              {% if form_data and form_data.occupation == item %}selected{% endif %}>
+              {{ item }}
+            </option>
+          {% endfor %}
+
         </select>
 
         <label>Relationship</label>
         <select name="relationship" required>
-            <option>Husband</option>
-            <option>Not-in-family</option>
-            <option>Own-child</option>
-            <option>Unmarried</option>
-            <option>Wife</option>
-            <option>Other-relative</option>
+            {% for item in['Husband','Not-in-family','Own-child','Unmarried','Wife','Other-relative']%}
+                <option value ="{{ item }}"
+                  {% if form_data and form_data.relationship == item %}selected{% endif %}>
+                  {{ item }}
+                </option>
+            {% endfor %}
+
         </select>
 
         <label>Race</label>
         <select name="race" required>
-            <option>White</option>
-            <option>Black</option>
-            <option>Asian-Pac-Islander</option>
-            <option>Amer-Indian-Eskimo</option>
-            <option>Other</option>
+            {% for item in['White','Black','Asian-Pac-Islander','Amer-In dianp-Eskimo','Other']%}
+                <option value ="{{ item }}"
+                  {% if form_data and form_data.race == item %}selected{% endif %}>
+                  {{ item }}
+                </option>
+            {% endfor %}
         </select>
 
         <label>Sex</label>
         <select name="sex" required>
-            <option>Female</option>
-            <option>Male</option>
+            {% for item in['Female','Male']%}
+                <option value ="{{ item }}"
+                  {% if form_data and form_data.sex == item %}selected{% endif %}>
+                  {{ item }}
+                </option>
+            {% endfor %}
         </select>
 
         <label>Capital Gain</label>
-        <input type="number" name="capital.gain" min="0" value="0" required>
+        <input type="number" name="capital.gain" min="0" value="{{form_data['capital.gain']if form_data else 0 }}" required>
 
         <label>Capital Loss</label>
-        <input type="number" name="capital.loss" min="0" value="0" required>
+        <input type="number" name="capital.loss" min="0" value="{{form_data['capital_loss']if form_data else 0 }}" required>
 
         <label>Hours per Week</label>
-        <input type="number" name="hours.per.week" min="1" max="99" value="40" required>
+        <input type="number" name="hours.per.week" min="1" max="99" value="{{form_data['hours.per.week']if form_data else 40}}" required>
 
         <label>Native Country</label>
-        <select name="native.country" required>
-            <option>United-States</option>
-            <option>India</option>
-            <option>Mexico</option>
-            <option>Canada</option>
-            <option>Germany</option>
-            <option>Philippines</option>
-            <option>England</option>
-            <option>Other</option>
+        <select name="native.country" required> 
+            {% for in item ['United-States','India','Mexico','Canada','Germany','Philippines','England','Other']%}
+                <option value ="{{ item }}"
+                  {% if form_data and form_data.Native Country == item %}selected{% endif %}>
+                  {{ item }}
+                </option>
+            {% endfor %}
         </select>
 
         <button type="submit">Predict Income</button>
